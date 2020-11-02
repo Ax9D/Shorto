@@ -65,7 +65,10 @@ const chartOptions = {
 };
 let chart;
 let chartData;
-let ANALYTICSWSS;
+const ANALYTICSWSS =
+  process.env.NODE_ENV === "production"
+    ? `wss://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_ANALYTICS_ENDPOINT}`
+    : "ws://localhost:8020/analytics";
 
 let rowLookup = {};
 
@@ -90,11 +93,6 @@ export default {
     };
   },
   methods: {
-    mounted:function(){
-    ANALYTICSWSS = process.env.NODE_ENV === "production"
-    ? `wss://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_ANALYTICS_ENDPOINT}`
-    : "ws://localhost:8020/analytics";
-    },
     connect: function () {
       return new Promise((resolve, reject) => {
         const socket = new WebSocket(ANALYTICSWSS);

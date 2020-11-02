@@ -42,7 +42,10 @@
 const errors = require("../../../modules/errors.js");
 const urlUtil = require("../../../modules/urlUtil.js");
 
-let GENERATEAPI;
+const GENERATEAPI =
+  process.env.NODE_ENV === "production"
+    ? `https://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_GENERATE_ENDPOINT}`
+    : `${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_GENERATE_ENDPOINT}`;
 
 export default {
   name: "App",
@@ -54,18 +57,13 @@ export default {
       urlData: null,
     };
   },
-  methods: 
-  {
-  mounted:function(){
-  GENERATEAPI= process.env.NODE_ENV === "production"
-    ? `https://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_GENERATE_ENDPOINT}`
-    : `${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_GENERATE_ENDPOINT}`;
-  },
+  methods: {
     updateValidity: function () {
       if (this.urlData) this.urlData = null;
       return (this.validURL = urlUtil.validUrl(this.url));
     },
     generate: function () {
+      console.log(process.env);
       fetch(GENERATEAPI, {
         method: "post",
         headers: {

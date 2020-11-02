@@ -3,7 +3,9 @@
 </template>
 
 <script>
-let REDIRECTAPI;
+const REDIRECTAPI=process.env.NODE_ENV === "production"
+    ? `https://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_REDIRECT_ENDPOINT}`
+    : `${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_REDIRECT_ENDPOINT}`;
 export default {
   data: function () {
     return {
@@ -12,13 +14,6 @@ export default {
   },
   mounted: function () {
     let shortID = this.$route.params.shortID;
-
-
-    REDIRECTAPI=process.env.NODE_ENV === "production"
-    ? `https://${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_REDIRECT_ENDPOINT}`
-    : `${process.env.VUE_APP_ROOT_API}${process.env.VUE_APP_REDIRECT_ENDPOINT}`;
-
-
     fetch(`${REDIRECTAPI}${shortID}`)
       .then((response) => {
         if (response.status == 200) return response.json();
