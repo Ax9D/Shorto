@@ -1,0 +1,11 @@
+#!/bin/bash
+
+npm run build
+
+git checkout gh-pages
+
+git add dist
+git commit -m "deploy"
+git push origin HEAD:gh-pages --force
+
+git checkout main
