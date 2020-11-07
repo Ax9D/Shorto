@@ -59,13 +59,15 @@ class AnalyticsService {
             } }));
 
     }
-    async broadcastUpdates(analyticsID, clicks, regionData) {
+    broadcastUpdates(analyticsID, clicks, regionData) {
         
+        //TODO: Optimize
         let connectionSet;
         if (connectionSet = this.dataConnections.get(analyticsID)) {
             for (let connection of connectionSet)
-                await connection.send( JSON.stringify( { clicks, regionData } ));
-        }        
+                connection.send( JSON.stringify( { clicks, regionData } ));
+        } 
+               
     }
     async broadcastUpdatesStaggered()
     {
@@ -107,9 +109,9 @@ class AnalyticsService {
             console.log("Untracked URL");
 
     }
-    async getData(analyticsID) {
-        let entry = await this.db.findOne({ analyticsID, 'analytics.tracked': true });
-        return entry;
+    getData(analyticsID) {
+        let entryPromise = this.db.findOne({ analyticsID, 'analytics.tracked': true });
+        return entryPromise;
     }
     defaultData() {
         return {

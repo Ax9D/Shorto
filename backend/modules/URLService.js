@@ -8,22 +8,25 @@ class URLService
     async init(db)
     {
         this.db=await db.get(URLCollection);
-        this.db.createIndex('shortID');
+        await this.db.createIndex('shortID');
     }
-    async createRedirect(link,shortID, analyticsID)
+    createRedirect(link,shortID, analyticsID)
     {
         let linkURL=new URL(link);
         if(linkURL.protocol=='')
             link='http://'+link; //Guess http 
     
-        console.log(`${shortID} --> ${link}`);
         let analytics=AnalyticsService.defaultData();
-        await this.db.insert({shortID,link,analyticsID,analytics});
+
+        console.log(`${shortID} --> ${link}`);
+
+        //Return original promise
+        return this.db.insert({shortID,link,analyticsID,analytics});
     }
-    async getData(shortID)
+    getData(shortID)
     {
-        let entry=await this.db.findOne({shortID});
-        return entry;
+        let entryPromise=this.db.findOne({shortID});
+        return entryPromise;
     }
 }
 

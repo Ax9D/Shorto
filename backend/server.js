@@ -99,7 +99,7 @@ async function validRecaptcha(clientToken, ip) {
             console.log(respData['error-codes']);
         }
         else
-            result.success=true;
+            result.success = true;
     } catch (err) {
         console.log(err);
         result.error = errors.INTERNAL_SERVER_ERROR;
@@ -114,7 +114,6 @@ app.post('/generate', async function (req, res) {
         res.json({
             error: captchaResult.error
         });
-
         return;
     }
     if (urlUtil.validUrl(req.body.url)) {
@@ -167,15 +166,16 @@ wss.on('connection', function (socket) {
         let db = await initDB();
 
         //Bypass heroku timeout to give time for id generation if required
+        /*
         let bypassServer = new http.Server();
 
         bypassServer.listen(PORT, function () {
             console.log(`Bypassing heroku on ${PORT}`);
         });
-        await IDGenerator.init(db);
 
         bypassServer.close();
-
+        */
+        await IDGenerator.init(db);
         await URLService.init(db);
         await AnalyticsService.init(db);
 
