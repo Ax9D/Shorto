@@ -19,11 +19,11 @@ cd ../backend && npm install
 ## Run
 To run the app locally, start the backend server ( inside backend )
 ```
-npm run start 
+npm run dev 
 ```
 then run Vue cli's dev server for the frontend ( inside frontend )
 ```
-npm run dev
+npm run serve
 ```
 
 

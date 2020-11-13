@@ -164,7 +164,6 @@ wss.on('connection', function (socket) {
 (async function () {
     try {
         let db = await initDB();
-
         //Bypass heroku timeout to give time for id generation if required
         /*
         let bypassServer = new http.Server();
