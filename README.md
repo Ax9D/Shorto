@@ -7,7 +7,7 @@ Live at: https://ax9d.github.io/short/
 ## Setup
 Get the code from the repo
 ```
-git clone --recursive https://github.com/Ax9D/short.git
+git clone https://github.com/Ax9D/short.git
 ```
 ## Build
 After cloning, Install dependencies for both frontend and backend
@@ -23,7 +23,7 @@ npm run start
 ```
 then run Vue cli's dev server for the frontend ( inside frontend )
 ```
-npm run serve 
+npm run dev
 ```
 
 
