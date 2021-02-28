@@ -88,6 +88,8 @@ class AnalyticsService {
             update[`analytics.regionData.${geoData.country}`] = 1;
         }
 
+
+        //If the linked is tracked, update the clicks and location data
         let result = await this.db.findOneAndUpdate(
             {
                 analyticsID,
