@@ -1,5 +1,5 @@
 
-# Short
+# Shorto
 A link shortener which provides live analytics. 
 Backend uses express js and mongodb. Frontend written in Vue.js.
 ![demo](./demo.gif)  
